@@ -2,6 +2,7 @@ from flask import Blueprint, render_template, request, redirect, url_for, flash
 from app import app
 from .models import db, FeedingRecord
 from .forms import FeedingRecordForm
+from datetime import datetime
 
 app = Blueprint('app', __name__)
 
