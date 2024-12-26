@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>婴儿喂养记录</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('app.static', filename='css/styles.css') }}">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
@@ -13,11 +13,11 @@
         <h1>婴儿喂养记录概览</h1>
         <canvas id="feedingChart"></canvas>
         <div class="actions">
-            <a href="{{ url_for('add_record') }}" class="btn">添加记录</a>
-            <a href="{{ url_for('view_records') }}" class="btn">查看记录</a>
+            <a href="{{ url_for('app.add_record') }}" class="btn">添加记录</a>
+            <a href="{{ url_for('app.view_records') }}" class="btn">查看记录</a>
         </div>
     </div>
-    <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+    <script src="{{ url_for('app.static', filename='js/scripts.js') }}"></script>
     <script>
         const ctx = document.getElementById('feedingChart').getContext('2d');
         const feedingChart = new Chart(ctx, {

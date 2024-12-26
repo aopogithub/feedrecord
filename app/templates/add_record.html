@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>添加喂养记录</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('app.static', filename='css/styles.css') }}">
 </head>
 <body>
     {% include 'base.html' %}
     <div class="container">
         <h1>添加喂养记录</h1>
-        <form action="{{ url_for('add_record') }}" method="POST">
+        <form action="{{ url_for('app.add_record') }}" method="POST">
             <label for="feeding_type">喂养方式:</label>
             <select name="feeding_type" id="feeding_type" required>
                 <option value="breastfeeding">亲喂</option>
@@ -25,7 +25,7 @@
             <br>
             <button type="submit">提交记录</button>
         </form>
-        <a href="{{ url_for('view_records') }}">查看记录</a>
+        <a href="{{ url_for('app.view_records') }}">查看记录</a>
     </div>
 </body>
 </html>
