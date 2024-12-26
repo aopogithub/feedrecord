@@ -84,12 +84,12 @@
             <tbody>
                 {% for record in records %}
                 <tr>
-                    <td>{{ record.id }}</td>
-                    <td>{{ '亲喂' if record.feeding_type == 'breast' else '瓶喂' }}</td>
-                    <td>{{ record.timestamp.strftime('%Y-%m-%d %H:%M') }}</td>
-                    <td>{{ record.amount }} {{ record.unit }}</td>
-                    <td>{{ record.notes }}</td>
-                    <td>
+                    <td data-label="记录ID">{{ record.id }}</td>
+                    <td data-label="喂养方式">{{ '亲喂' if record.feeding_type == 'breast' else '瓶喂' }}</td>
+                    <td data-label="喂养时间">{{ record.timestamp.strftime('%Y-%m-%d %H:%M') }}</td>
+                    <td data-label="喂养量">{{ record.amount }} {{ record.unit }}</td>
+                    <td data-label="备注">{{ record.notes }}</td>
+                    <td data-label="操作">
                         <a href="{{ url_for('app.delete_record', record_id=record.id) }}">删除</a>
                     </td>
                 </tr>
