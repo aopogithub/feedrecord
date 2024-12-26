@@ -3,15 +3,28 @@ from app import app
 from .models import db, FeedingRecord
 from .forms import FeedingRecordForm
 from datetime import datetime
+from collections import defaultdict
 
 app = Blueprint('app', __name__)
 
 @app.route('/')
 def index():
     records = FeedingRecord.query.all()
-    labels = [record.timestamp.strftime('%Y-%m-%d %H:%M:%S') for record in records]
-    data = [record.amount for record in records]
-    return render_template('index.html', records=records, labels=labels, data=data)
+    # 初始化字典来存储每天的亲喂和瓶喂总量
+    daily_totals = defaultdict(lambda: {'breast': 0, 'bottle': 0})
+    for record in records:
+        date_str = record.timestamp.strftime('%Y-%m-%d')
+        if record.feeding_type == 'breast':
+            daily_totals[date_str]['breast'] += record.amount
+        else:
+            daily_totals[date_str]['bottle'] += record.amount
+
+    # 准备图表数据
+    labels = sorted(daily_totals.keys())
+    breast_data = [daily_totals[date]['breast'] for date in labels]
+    bottle_data = [daily_totals[date]['bottle'] for date in labels]
+    
+    return render_template('index.html', records=records, labels=labels, breast_data=breast_data, bottle_data=bottle_data)
 
 @app.route('/add', methods=['GET', 'POST'])
 def add_record():
