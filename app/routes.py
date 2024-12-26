@@ -8,7 +8,9 @@ app = Blueprint('app', __name__)
 @app.route('/')
 def index():
     records = FeedingRecord.query.all()
-    return render_template('index.html', records=records)
+    labels = [record.timestamp.strftime('%Y-%m-%d %H:%M:%S') for record in records]
+    data = [record.amount for record in records]
+    return render_template('index.html', records=records, labels=labels, data=data)
 
 @app.route('/add', methods=['GET', 'POST'])
 def add_record():
