@@ -19,7 +19,8 @@ def add_record():
         new_record = FeedingRecord(
             feeding_type=form.feeding_type.data,
             amount=form.amount.data,
-            date=form.date.data
+            notes=form.notes.data,
+            timestamp=form.timestamp.data
         )
         db.session.add(new_record)
         db.session.commit()
