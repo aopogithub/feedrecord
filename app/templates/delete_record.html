@@ -8,10 +8,10 @@
 </head>
 <body>
     <div class="container">
-        <h1>确认删除记录</h1>
+        <h2>确认删除记录</h2>
         <p>您确定要删除以下记录吗？</p>
-        <p><strong>喂养类型：</strong> {{ record.feeding_type }}</p>
-        <p><strong>喂养时间：</strong> {{ record.feeding_time }}</p>
+        <p><strong>喂养方式：</strong> {{ '亲喂' if record.feeding_type == 'breast' else '瓶喂' }}</p>
+        <p><strong>喂养时间：</strong> {{ record.timestamp.strftime('%Y-%m-%d %H:%M') }}</p>
         <form method="POST">
             <input type="hidden" name="record_id" value="{{ record.id }}">
             <button type="submit">确认删除</button>
