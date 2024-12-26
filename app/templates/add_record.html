@@ -21,9 +21,6 @@
             <label for="notes">备注:</label>
             {{ form.notes }}
             <br>
-            <label for="timestamp">喂养时间:</label>
-            {{ form.timestamp }}
-            <br>
             {{ form.submit }}
         </form>
         <a href="{{ url_for('app.view_records') }}">查看记录</a>

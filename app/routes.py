@@ -20,7 +20,7 @@ def add_record():
             feeding_type=form.feeding_type.data,
             amount=form.amount.data,
             notes=form.notes.data,
-            timestamp=form.timestamp.data
+            timestamp=datetime.now()  # 设置为当前时间
         )
         db.session.add(new_record)
         db.session.commit()

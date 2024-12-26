@@ -6,7 +6,6 @@ class FeedingRecordForm(FlaskForm):
     feeding_type = SelectField('喂养方式', choices=[('breast', '亲喂'), ('bottle', '瓶喂')], validators=[DataRequired()])
     amount = IntegerField('喂养量 (毫升)', validators=[DataRequired(), NumberRange(min=1)])
     notes = StringField('备注')
-    timestamp = DateTimeField('喂养时间', validators=[DataRequired()])
     submit = SubmitField('添加记录')
     class Meta:
         csrf = False
