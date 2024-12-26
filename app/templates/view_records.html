@@ -46,32 +46,20 @@
         a:hover {
             text-decoration: underline;
         }
-        @media (max-width: 600px) {
-            table, thead, tbody, th, td, tr {
-                display: block;
-            }
-            thead tr {
-                display: none;
-            }
-            tr {
-                margin-bottom: 15px;
-            }
-            td {
-                text-align: right;
-                padding-left: 50%;
-                position: relative;
-            }
-            td:before {
-                content: attr(data-label);
-                position: absolute;
-                left: 0;
-                width: 50%;
-                padding-left: 15px;
-                font-weight: bold;
-                text-align: left;
-            }
+        .details {
+            display: none;
         }
     </style>
+    <script>
+        function toggleDetails(date) {
+            var details = document.getElementById('details-' + date);
+            if (details.style.display === 'none') {
+                details.style.display = 'table-row-group';
+            } else {
+                details.style.display = 'none';
+            }
+        }
+    </script>
 </head>
 <body>
     <div class="container">
@@ -79,26 +67,33 @@
         <table>
             <thead>
                 <tr>
-                    <th>记录ID</th>
-                    <th>喂养方式</th>
-                    <th>喂养时间</th>
-                    <th>喂养量</th>
-                    <th>备注</th>
+                    <th>日期</th>
+                    <th>亲喂总量 (分钟)</th>
+                    <th>瓶喂总量 (毫升)</th>
                     <th>操作</th>
                 </tr>
             </thead>
             <tbody>
-                {% for record in records %}
-                <tr>
-                    <td data-label="记录ID">{{ record.id }}</td>
-                    <td data-label="喂养方式">{{ '亲喂' if record.feeding_type == 'breast' else '瓶喂' }}</td>
-                    <td data-label="喂养时间">{{ record.timestamp.strftime('%Y-%m-%d %H:%M') }}</td>
-                    <td data-label="喂养量">{{ record.amount }} {{ record.unit }}</td>
-                    <td data-label="备注">{{ record.notes }}</td>
-                    <td data-label="操作">
-                        <a href="{{ url_for('app.delete_record', record_id=record.id) }}">删除</a>
-                    </td>
+                {% for date, totals in daily_totals.items() %}
+                <tr onclick="toggleDetails('{{ date }}')">
+                    <td>{{ date }}</td>
+                    <td>{{ totals.breast }}</td>
+                    <td>{{ totals.bottle }}</td>
+                    <td><a href="javascript:void(0)">查看详情</a></td>
                 </tr>
+                <tbody id="details-{{ date }}" class="details">
+                    {% for record in totals.records %}
+                    <tr>
+                        <td colspan="4">
+                            <strong>喂养方式:</strong> {{ '亲喂' if record.feeding_type == 'breast' else '瓶喂' }}<br>
+                            <strong>喂养时间:</strong> {{ record.timestamp.strftime('%Y-%m-%d %H:%M') }}<br>
+                            <strong>喂养量:</strong> {{ record.amount }} {{ record.unit }}<br>
+                            <strong>备注:</strong> {{ record.notes }}<br>
+                            <a href="{{ url_for('app.delete_record', record_id=record.id) }}">删除</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
                 {% endfor %}
             </tbody>
         </table>

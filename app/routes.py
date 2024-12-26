@@ -51,7 +51,17 @@ def add_record():
 @app.route('/view')
 def view_records():
     records = FeedingRecord.query.all()
-    return render_template('view_records.html', records=records)
+    daily_totals = defaultdict(lambda: {'breast': 0, 'bottle': 0, 'records': []})
+    
+    for record in records:
+        date_str = record.timestamp.strftime('%Y-%m-%d')
+        if record.feeding_type == 'breast':
+            daily_totals[date_str]['breast'] += record.amount
+        else:
+            daily_totals[date_str]['bottle'] += record.amount
+        daily_totals[date_str]['records'].append(record)
+    
+    return render_template('view_records.html', daily_totals=daily_totals)
 
 @app.route('/delete/<int:record_id>', methods=['GET', 'POST'])
 def delete_record(record_id):
