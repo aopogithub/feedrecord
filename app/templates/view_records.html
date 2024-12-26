@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>查看喂养记录</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    {% include 'base.html' %}
+    <div class="container">
+        <h1>喂养记录</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>记录ID</th>
+                    <th>喂养方式</th>
+                    <th>喂养时间</th>
+                    <th>喂养量（毫升）</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for record in records %}
+                <tr>
+                    <td>{{ record.id }}</td>
+                    <td>{{ record.feeding_type }}</td>
+                    <td>{{ record.feeding_time }}</td>
+                    <td>{{ record.amount }}</td>
+                    <td>
+                        <a href="{{ url_for('delete_record', record_id=record.id) }}">删除</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <a href="{{ url_for('add_record') }}">添加新记录</a>
+    </div>
+</body>
+</html>
