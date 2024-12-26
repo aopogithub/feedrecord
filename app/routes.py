@@ -16,12 +16,14 @@ def index():
 @app.route('/add', methods=['GET', 'POST'])
 def add_record():
     form = FeedingRecordForm()
+    unit = '分钟' if form.feeding_type.data == 'breast' else '毫升'
     if form.validate_on_submit():
         new_record = FeedingRecord(
             feeding_type=form.feeding_type.data,
             amount=form.amount.data,
             notes=form.notes.data,
             timestamp=datetime.now()  # 设置为当前时间
+            unit=unit
         )
         db.session.add(new_record)
         db.session.commit()

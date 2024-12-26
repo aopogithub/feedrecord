@@ -5,6 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>添加喂养记录</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <script>
+        function updateUnit() {
+            const feedingType = document.getElementById('feeding_type').value;
+            const amountLabel = document.getElementById('amount_label');
+            const unit = feedingType === 'breast' ? '分钟' : '毫升';
+            amountLabel.innerText = `喂养量 (${unit}):`;
+            document.getElementById('unit').value = unit;
+        }
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('feeding_type').addEventListener('change', updateUnit);
+            updateUnit();  // 初始化时更新单位
+        });
+    </script>
 </head>
 <body>
     {% include 'base.html' %}
@@ -21,6 +34,7 @@
             <label for="notes">备注:</label>
             {{ form.notes }}
             <br>
+            {{ form.unit(id='unit') }}  <!-- 隐藏字段 -->
             {{ form.submit }}
         </form>
         <a href="{{ url_for('app.view_records') }}">查看记录</a>
