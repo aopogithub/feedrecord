@@ -25,7 +25,11 @@ def add_record():
         db.session.add(new_record)
         db.session.commit()
         flash('记录添加成功！', 'success')
+        print(f"Added record: {new_record}")  # 调试信息
         return redirect(url_for('app.index'))
+    else:
+        print("Form validation failed")  # 调试信息
+        print(form.errors)  # 打印表单错误信息
     return render_template('add_record.html', form=form)
 
 @app.route('/view')
