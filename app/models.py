@@ -12,4 +12,4 @@ class FeedingRecord(db.Model):
     unit = db.Column(db.String(10), nullable=False, default='ml')  # 添加 unit 字段
 
     def __repr__(self):
-        return f'<FeedingRecord {self.id}: {self.feeding_type} - {self.amount}ml>'
+        return f'<FeedingRecord {self.id}: {self.feeding_type} - {self.amount}{self.unit}>'
