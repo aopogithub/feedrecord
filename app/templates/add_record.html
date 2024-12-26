@@ -11,19 +11,20 @@
     <div class="container">
         <h1>添加喂养记录</h1>
         <form action="{{ url_for('app.add_record') }}" method="POST">
+            {{ form.hidden_tag() }}
             <label for="feeding_type">喂养方式:</label>
-            <select name="feeding_type" id="feeding_type" required>
-                <option value="breastfeeding">亲喂</option>
-                <option value="bottle_feeding">瓶喂</option>
-            </select>
+            {{ form.feeding_type }}
             <br>
             <label for="amount">喂养量 (毫升):</label>
-            <input type="number" name="amount" id="amount" required>
+            {{ form.amount }}
             <br>
-            <label for="time">喂养时间:</label>
-            <input type="datetime-local" name="time" id="time" required>
+            <label for="notes">备注:</label>
+            {{ form.notes }}
             <br>
-            <button type="submit">提交记录</button>
+            <label for="timestamp">喂养时间:</label>
+            {{ form.timestamp }}
+            <br>
+            {{ form.submit }}
         </form>
         <a href="{{ url_for('app.view_records') }}">查看记录</a>
     </div>
