@@ -18,7 +18,7 @@
 ## 项目结构
 
 ```
-baby-feeding-tracker
+feedrecord
 ├── app
 │   ├── __init__.py
 │   ├── routes.py
@@ -48,7 +48,7 @@ baby-feeding-tracker
 1. 克隆项目到本地：
    ```
    git clone <项目地址>
-   cd baby-feeding-tracker
+   cd feedrecord
    ```
 
 2. 安装依赖：
@@ -62,11 +62,3 @@ baby-feeding-tracker
    ```
 
 4. 打开浏览器，访问 `http://127.0.0.1:5000` 查看应用。
-
-## 贡献
-
-欢迎任何形式的贡献！请提交问题或拉取请求。
-
-## 许可证
-
-本项目采用MIT许可证，详情请查看LICENSE文件。
